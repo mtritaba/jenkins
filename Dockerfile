@@ -1,8 +1,4 @@
-FROM jenkinsci/jnlp-slave
+FROM jenkins-slave-maven-centos7
+COPY plugins.txt /opt/openshift/configuration/plugins.txt
+RUN /usr/local/bin/install-plugins.sh /opt/openshift/configuration/plugins.txt
 
-MAINTAINER mtritaba@redhat.com
-
-RUN curl -fsSL https://github.com/openshift/origin/releases/download/v3.7.0/openshift-origin-client-tools-v3.7.0-7ed6862-linux-64bit.tar.gz | tar xzf - -C /tmp && \
-    cp /tmp/openshift-origin-client-tools-v3.7.0-7ed6862-linux-64bit/oc /usr/share/jenkins
-
-ENTRYPOINT ["jenkins-slave"]
